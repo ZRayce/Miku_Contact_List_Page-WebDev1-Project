@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Boogaloo&family=Nunito:wght@400;700;900&family=VT323&display=swap');
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #0d1117;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(57,197,187,0.04) 40px, rgba(57,197,187,0.04) 41px),
+    repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(57,197,187,0.04) 40px, rgba(57,197,187,0.04) 41px);
+  font-family: 'Nunito', sans-serif;
+  color: #e0f7f5;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── TICKER ── */
+.ticker {
+  background: #39c5bb;
+  color: #0d1117;
+  font-family: 'VT323', monospace;
+  font-size: 1.1rem;
+  padding: 5px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 3px solid #ff6b9d;
+}
+.ticker-inner { display: inline-block; animation: ticker 22s linear infinite; }
+@keyframes ticker {
+  from { transform: translateX(100vw); }
+  to   { transform: translateX(-100%); }
+}
+
+/* ── PAGE GRID ── */
+.page-grid {
+  display: grid;
+  grid-template-columns: 130px 1fr 130px;
+  min-height: calc(100vh - 38px);
+}
+@media(max-width:700px) {
+  .page-grid { grid-template-columns: 1fr; }
+  .side-banner { display: none; }
+}
+
+/* ── SIDE BANNERS ── */
+.side-banner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 8px;
+  border-right: 2px dashed rgba(57,197,187,0.2);
+  position: sticky;
+  top: 38px;
+  height: calc(100vh - 38px);
+  overflow: hidden;
+}
+.side-banner.right { border-right: none; border-left: 2px dashed rgba(57,197,187,0.2); }
+.banner-slot {
+  width: 110px;
+  border: 2px solid #39c5bb;
+  box-shadow: 3px 3px 0 #ff6b9d;
+  overflow: hidden;
+  background: #111827;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.banner-slot img { width:100%; height:100%; object-fit:cover; display:block; }
+.banner-slot.placeholder {
+  height: 130px;
+  border-style: dashed;
+  border-color: rgba(57,197,187,0.4);
+  box-shadow: none;
+  flex-direction: column;
+  gap: 4px;
+}
+.banner-slot.placeholder span {
+  font-family: 'VT323', monospace;
+  font-size: 0.7rem;
+  color: rgba(57,197,187,0.4);
+  text-align: center;
+  letter-spacing: 1px;
+  padding: 0 6px;
+  line-height: 1.3;
+}
+.banner-divider { width:80%; height:1px; background:linear-gradient(90deg,transparent,rgba(57,197,187,0.3),transparent); }
+.banner-label { font-family:'VT323',monospace; font-size:0.72rem; letter-spacing:2px; color:rgba(57,197,187,0.35); text-align:center; }
+
+/* ── MAIN ── */
+.main { padding: 0 8px; }
+
+/* ── HERO ── */
+.hero { text-align:center; padding:28px 16px 12px; }
+.hero-stamp {
+  display:inline-block; border:4px solid #ff6b9d; border-radius:8px;
+  padding:3px 14px; font-family:'VT323',monospace; font-size:1rem;
+  color:#ff6b9d; letter-spacing:3px; margin-bottom:10px; transform:rotate(-1.5deg);
+}
+.hero h1 {
+  font-family:'Boogaloo',cursive; font-size:clamp(2rem,5vw,4rem); line-height:1;
+  color:#39c5bb; text-shadow:3px 3px 0 #1a5e5b,5px 5px 0 rgba(57,197,187,0.2); letter-spacing:2px;
+}
+.hero h1 span { color:#ff6b9d; text-shadow:3px 3px 0 #7a1a3e; }
+.hero-sub { font-family:'VT323',monospace; font-size:1.1rem; color:#7de8e2; margin-top:6px; letter-spacing:1px; }
+.miku-gif-wrap { display:flex; justify-content:center; margin:14px 0 6px; }
+.miku-gif-wrap img {
+  width:190px; height:auto; border:3px solid #39c5bb;
+  box-shadow:0 0 24px rgba(57,197,187,0.5),4px 4px 0 #ff6b9d;
+  animation:gifBob 3s ease-in-out infinite;
+}
+@keyframes gifBob {
+  0%,100% { transform:translateY(0) rotate(-1deg); }
+  50%      { transform:translateY(-6px) rotate(1deg); }
+}
+.badges { display:flex; justify-content:center; gap:8px; flex-wrap:wrap; margin:12px 0 4px; }
+.badge { font-family:'VT323',monospace; font-size:0.88rem; padding:3px 10px; border-radius:4px; letter-spacing:1px; transform:rotate(var(--r,0deg)); }
+.b1{background:#39c5bb;color:#0d1117;--r:-2deg;}
+.b2{background:#ff6b9d;color:#fff;--r:1.5deg;}
+.b3{background:#ffe066;color:#0d1117;--r:-1deg;}
+.b4{background:#a78bfa;color:#fff;--r:2deg;}
+
+/* ── PANELS ── */
+.layout { padding:16px 0 20px; }
+.panel { background:#111827; border:2px solid #39c5bb; margin-bottom:18px; position:relative; box-shadow:4px 4px 0 #39c5bb; }
+.panel.pink-panel { border-color:#ff6b9d; box-shadow:4px 4px 0 #ff6b9d; }
+.panel-header { background:#39c5bb; color:#0d1117; font-family:'VT323',monospace; font-size:1.15rem; letter-spacing:2px; padding:6px 14px; }
+.panel.pink-panel .panel-header { background:#ff6b9d; }
+.panel-body { padding:18px 16px; }
+.corner-txt { position:absolute; font-family:'VT323',monospace; font-size:0.72rem; letter-spacing:2px; color:rgba(57,197,187,0.25); pointer-events:none; }
+.tl{top:4px;left:8px;} .br{bottom:4px;right:8px;}
+.form-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+@media(max-width:560px){.form-grid{grid-template-columns:1fr;}}
+.field label { display:block; font-family:'VT323',monospace; font-size:1rem; letter-spacing:2px; color:#39c5bb; margin-bottom:4px; }
+.pink-panel .field label { color:#ff6b9d; }
+.field input { width:100%; background:#0d1117; border:2px solid #2a4a48; padding:8px 12px; color:#e0f7f5; font-family:'VT323',monospace; font-size:1.05rem; outline:none; letter-spacing:1px; transition:border-color 0.15s; }
+.field input:focus{border-color:#39c5bb;}
+.pink-panel .field input:focus{border-color:#ff6b9d;}
+.field input::placeholder{color:#2e5e5b;}
+.btn-row{margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;}
+.btn{font-family:'VT323',monospace;font-size:1.1rem;letter-spacing:2px;padding:8px 20px;border:2px solid currentColor;cursor:pointer;transition:all 0.1s;}
+.btn:active{transform:translate(2px,2px);box-shadow:none!important;}
+.btn-add{background:#39c5bb;color:#0d1117;border-color:#39c5bb;box-shadow:3px 3px 0 #1a5e5b;}
+.btn-add:hover{background:#55d9d0;box-shadow:1px 1px 0 #1a5e5b;transform:translate(1px,1px);}
+.btn-cancel{background:transparent;color:#7de8e2;border-color:#2a4a48;box-shadow:3px 3px 0 #2a4a48;}
+.btn-cancel:hover{border-color:#7de8e2;}
+.btn-edit-sm{background:rgba(57,197,187,0.12);color:#39c5bb;border-color:#39c5bb;font-size:0.88rem;padding:4px 10px;box-shadow:2px 2px 0 #1a5e5b;}
+.btn-del-sm{background:rgba(255,107,157,0.1);color:#ff6b9d;border-color:#ff6b9d;font-size:0.88rem;padding:4px 10px;box-shadow:2px 2px 0 #7a1a3e;}
+.search-wrap{position:relative;margin-bottom:14px;}
+.search-wrap input{width:100%;background:#0d1117;border:2px solid #2a4a48;padding:8px 12px 8px 36px;color:#e0f7f5;font-family:'VT323',monospace;font-size:1.05rem;letter-spacing:1px;outline:none;}
+.search-wrap input:focus{border-color:#39c5bb;}
+.search-wrap::before{content:'♪';position:absolute;left:11px;top:50%;transform:translateY(-50%);color:#39c5bb;}
+.tbl-wrap{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;font-size:0.88rem;}
+thead th{background:rgba(57,197,187,0.1);border-bottom:2px solid #39c5bb;padding:10px 12px;font-family:'VT323',monospace;font-size:1rem;letter-spacing:2px;color:#39c5bb;text-align:left;white-space:nowrap;}
+tbody tr{border-bottom:1px solid rgba(57,197,187,0.1);}
+tbody tr:hover{background:rgba(57,197,187,0.04);}
+tbody td{padding:10px 12px;vertical-align:middle;}
+.td-name{font-weight:700;color:#fff;}
+.td-email{color:#7de8e2;font-size:0.84rem;}
+.td-phone{font-family:'VT323',monospace;font-size:1rem;letter-spacing:1px;color:#ffe066;}
+.td-num{color:#2a4a48;font-family:'VT323',monospace;}
+.td-actions{display:flex;gap:6px;}
+.empty{text-align:center;padding:40px;font-family:'VT323',monospace;font-size:1.1rem;color:#2a6a68;letter-spacing:2px;}
+.edit-bar{background:rgba(57,197,187,0.08);border-left:4px solid #39c5bb;padding:8px 14px;font-family:'VT323',monospace;font-size:1rem;color:#7de8e2;letter-spacing:1px;margin-bottom:14px;display:none;}
+.edit-bar.show{display:block;}
+.stat-bar{display:flex;gap:10px;align-items:center;margin-bottom:12px;flex-wrap:wrap;}
+.stat-tag{font-family:'VT323',monospace;font-size:0.95rem;letter-spacing:2px;padding:2px 10px;background:rgba(57,197,187,0.08);border:1px solid #39c5bb;color:#39c5bb;}
+
+/* ── FOOTER ── */
+.footer { border-top:2px dashed rgba(57,197,187,0.3); margin-top:10px; padding:28px 16px 32px; text-align:center; }
+.footer-heart { font-size:2rem; display:block; margin-bottom:10px; animation:heartbeat 1.2s ease-in-out infinite; filter:drop-shadow(0 0 8px #ff6b9d); }
+@keyframes heartbeat { 0%,100%{transform:scale(1);}14%{transform:scale(1.25);}28%{transform:scale(1);}42%{transform:scale(1.15);}70%{transform:scale(1);} }
+.footer-made{font-family:'VT323',monospace;font-size:1.3rem;letter-spacing:3px;color:#ff6b9d;text-shadow:2px 2px 0 #7a1a3e;margin-bottom:6px;}
+.footer-sub{font-family:'VT323',monospace;font-size:0.85rem;letter-spacing:2px;color:rgba(57,197,187,0.4);margin-bottom:14px;}
+.footer-links{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;}
+.footer-tag{font-family:'VT323',monospace;font-size:0.82rem;letter-spacing:2px;padding:2px 10px;border:1px solid rgba(57,197,187,0.25);color:rgba(57,197,187,0.5);}
+.footer-39{font-family:'Boogaloo',cursive;font-size:1.8rem;color:#39c5bb;text-shadow:2px 2px 0 #1a5e5b;letter-spacing:4px;display:block;margin-top:10px;animation:glow39 2s ease-in-out infinite alternate;}
+@keyframes glow39{from{text-shadow:2px 2px 0 #1a5e5b,0 0 8px rgba(57,197,187,0.3);}to{text-shadow:2px 2px 0 #1a5e5b,0 0 20px rgba(57,197,187,0.7),0 0 40px rgba(57,197,187,0.3);}}
+
+/* ── TOAST ── */
+.toast-area{position:fixed;bottom:20px;right:16px;z-index:999;display:flex;flex-direction:column;gap:8px;pointer-events:none;}
+.toast{background:#111827;border:2px solid #39c5bb;box-shadow:3px 3px 0 #39c5bb;padding:10px 16px;font-family:'VT323',monospace;font-size:1.05rem;letter-spacing:1px;color:#e0f7f5;animation:tIn .25s ease,tOut .25s 2.3s ease forwards;}
+.toast.red{border-color:#ff6b9d;box-shadow:3px 3px 0 #ff6b9d;}
+@keyframes tIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes tOut{to{opacity:0;transform:translateY(16px)}}
+
+/* ══════════════════════════════════════════
+   AD OVERLAY
+══════════════════════════════════════════ */
+#adOverlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+  animation: fadeInAd 0.4s ease;
+}
+#adOverlay.show { display: flex; }
+@keyframes fadeInAd { from{opacity:0} to{opacity:1} }
+
+.ad-box {
+  position: relative;
+  background: #fff;
+  width: min(480px, 94vw);
+  border: 4px solid #ff6b9d;
+  box-shadow: 8px 8px 0 #39c5bb, 0 0 60px rgba(255,107,157,0.4);
+  animation: adPop 0.4s cubic-bezier(.17,.67,.38,1.4);
+  overflow: hidden;
+}
+@keyframes adPop { from{transform:scale(0.6) rotate(-4deg)} to{transform:scale(1) rotate(0deg)} }
+
+.ad-chrome {
+  background: #e8e8e8;
+  border-bottom: 2px solid #ccc;
+  padding: 6px 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.ad-chrome-dot { width:11px; height:11px; border-radius:50%; }
+.dot-r{background:#ff5f57;} .dot-y{background:#febc2e;} .dot-g{background:#28c840;}
+.ad-chrome-bar {
+  flex:1; background:#fff; border:1px solid #ccc; border-radius:4px;
+  padding:2px 8px; font-size:0.72rem; color:#666; font-family:monospace;
+  white-space:nowrap; overflow:hidden;
+}
+
+.ad-inner { padding: 0; background:#fff; }
+
+.ad-header {
+  background: linear-gradient(135deg, #39c5bb, #1a8a84);
+  padding: 14px 18px 10px;
+  text-align: center;
+}
+.ad-header-label {
+  font-family: Arial, sans-serif; font-size: 0.6rem;
+  color: rgba(255,255,255,0.6); letter-spacing: 2px;
+  text-transform: uppercase; margin-bottom: 4px;
+}
+.ad-header h2 {
+  font-family: Arial Black, sans-serif; font-size: 1.4rem;
+  color: #fff; text-shadow: 2px 2px 0 rgba(0,0,0,0.2); line-height: 1.1;
+}
+.ad-header h2 span { color: #ffe066; }
+
+.ad-body { padding: 16px 18px; background: #fff; }
+
+.ad-img-placeholder {
+  width: 100%; height: 160px;
+  background: linear-gradient(135deg, #f0fffe, #e0f7f5);
+  border: 2px dashed #39c5bb;
+  overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 14px;
+}
+.ad-img-placeholder img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+
+.ad-tagline {
+  font-family: Arial Black, sans-serif; font-size: 1.1rem;
+  color: #111; margin-bottom: 6px; line-height: 1.2;
+}
+.ad-tagline span { color: #ff6b9d; }
+.ad-sub {
+  font-family: Arial, sans-serif; font-size: 0.78rem;
+  color: #555; margin-bottom: 14px; line-height: 1.5;
+}
+.ad-cta { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.ad-btn-main {
+  background: #ff6b9d; color: #fff;
+  font-family: Arial Black, sans-serif; font-size: 0.88rem;
+  padding: 10px 20px; border: none; cursor: pointer;
+  letter-spacing: 0.5px; flex: 1; transition: background 0.15s;
+}
+.ad-btn-main:hover { background: #e0507e; }
+.ad-small-print {
+  font-family: Arial, sans-serif; font-size: 0.6rem;
+  color: #aaa; line-height: 1.4; margin-top: 8px;
+}
+
+.ad-close-wrap {
+  position: absolute; top: 36px; right: 8px;
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+}
+#adCloseBtn {
+  width: 28px; height: 28px; background: #333; color: #fff;
+  border: none; font-size: 1rem; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  line-height: 1; transition: background 0.15s;
+}
+#adCloseBtn:hover { background: #ff6b9d; }
+#adCloseBtn.locked { background: #888; cursor: not-allowed; }
+#skipTimer {
+  font-family: Arial, sans-serif; font-size: 0.6rem;
+  color: #aaa; text-align: center; white-space: nowrap;
+}
+.ad-badge {
+  font-family: Arial, sans-serif; font-size: 0.55rem;
+  color: #ccc; letter-spacing: 1px;
+  text-align: right; padding: 2px 10px 6px;
+  background: #fff;
+}
+</style>
+</head>
+<body>
+
+<!-- TICKER -->
+<div class="ticker">
+  <span class="ticker-inner">
+    ★ HATSUNE MIKU IS THE GREATEST OF ALL TIME ★ 世界で一番可愛い ★ 39 ★ MIKU MIKU NI SHITE AGERU ★ SHE IS MY EVERYTHING ★ VOCALOID QUEEN ★ 初音ミク ★ TELL YOUR WORLD ★ ★ HATSUNE MIKU IS THE GREATEST OF ALL TIME ★ 世界で一番可愛い ★ 39 ★
+  </span>
+</div>
+
+<div class="page-grid">
+
+  <!-- LEFT BANNER -->
+  <div class="side-banner left">
+    <div class="banner-slot placeholder"><img src="/images/miku-miku-dance-meme-chibi-miku.gif" alt="Chibi Miku"/></div>
+    <div class="banner-divider"></div>
+    <div class="banner-slot placeholder"><img src="/images/miku-dance.gif" alt="Miku Dance"/></div>
+    <div class="banner-divider"></div>
+    <div class="banner-slot placeholder"><img src="/images/hatsune-miku-miku.gif" alt="Miku"/></div>
+    <div class="banner-label">★ MIKU ★</div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+    <div class="hero">
+      <div class="hero-stamp">★ Contact List PAGE ★</div>
+      <div class="miku-gif-wrap">
+        <img src="/images/miku-hatsune-miku.gif" alt="Miku headbutt" />
+      </div>
+      <h1>MIKU'S <span>CONTACT</span> LIST</h1>
+      <div class="hero-sub">because miku fans need to stay connected (◕‿◕✿)</div>
+      <div class="badges">
+        <span class="badge b1">♪ VOCALOID</span>
+        <span class="badge b2">♥ MIKU MIKU NI</span>
+        <span class="badge b3">★ TURQUOISE</span>
+        <span class="badge b4">✿ LEEK GANG</span>
+      </div>
+    </div>
+
+    <div class="layout">
+      <div class="panel pink-panel" id="formPanel">
+        <div class="panel-header">✦ ADD NEW CONTACT ✦</div>
+        <div class="panel-body">
+          <div class="edit-bar" id="editBar">✏ EDIT MODE — change fields and hit SAVE!</div>
+          <div class="form-grid">
+            <div class="field"><label>LAST NAME</label><input id="fLast" placeholder="e.g. HATSUNE" /></div>
+            <div class="field"><label>FIRST NAME</label><input id="fFirst" placeholder="e.g. MIKU" /></div>
+            <div class="field"><label>EMAIL ADDRESS</label><input id="fEmail" type="email" placeholder="miku@vocalo.jp" /></div>
+            <div class="field"><label>CONTACT NUMBER</label><input id="fPhone" placeholder="+81 39-39-39-39" /></div>
+          </div>
+          <div class="btn-row">
+            <button class="btn btn-add" id="submitBtn" onclick="handleSubmit()"> ♪ ADD CONTACT ♪ </button>
+            <button class="btn btn-cancel" id="cancelBtn" onclick="cancelEdit()" style="display:none"> CANCEL </button>
+          </div>
+        </div>
+        <span class="corner-txt tl">FORM_v39</span>
+        <span class="corner-txt br">MIKU.SYS</span>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">♫ CONTACT DIRECTORY ♫</div>
+        <div class="panel-body">
+          <div class="stat-bar"><div class="stat-tag">★ <span id="cCount">0</span> CONTACTS REGISTERED</div></div>
+          <div class="search-wrap"><input id="searchIn" placeholder="SEARCH... (type anything!)" oninput="renderTable()" /></div>
+          <div class="tbl-wrap">
+            <table>
+              <thead><tr><th>#</th><th>LAST NAME</th><th>FIRST NAME</th><th>EMAIL</th><th>PHONE</th><th>ACTIONS</th></tr></thead>
+              <tbody id="tbody"></tbody>
+            </table>
+          </div>
+        </div>
+        <span class="corner-txt tl">DB_v39</span>
+        <span class="corner-txt br">★ MIKU ★</span>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span class="footer-heart">♥</span>
+      <div class="footer-made">MADE WITH LOVE</div>
+      <div class="footer-sub">by Rayce Fillon · est. 2007</div>
+      <div class="footer-links">
+        <span class="footer-tag">✦ VOCALOID</span>
+        <span class="footer-tag">♪ PROJECT SEKAI</span>
+        <span class="footer-tag">★ MIKU</span>
+        <span class="footer-tag">✿ SEKAI</span>
+      </div>
+      <span class="footer-39">三 九 ★ 39</span>
+    </div>
+  </div>
+
+  <!-- RIGHT BANNER -->
+  <div class="side-banner right">
+    <div class="banner-slot placeholder"><img src="/images/miku-miku-dance-meme-chibi-miku.gif" alt="Chibi Miku"/></div>
+    <div class="banner-divider"></div>
+    <div class="banner-slot placeholder"><img src="/images/miku-dance.gif" alt="Miku Dance"/></div>
+    <div class="banner-divider"></div>
+    <div class="banner-slot placeholder"><img src="/images/hatsune-miku-miku.gif" alt="Miku"/></div>
+    <div class="banner-label">★ MIKU ★</div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════
+     FAKE AD OVERLAY
+══════════════════════════════════════ -->
+<div id="adOverlay">
+  <div class="ad-box">
+
+    <div class="ad-chrome">
+      <div class="ad-chrome-dot dot-r"></div>
+      <div class="ad-chrome-dot dot-y"></div>
+      <div class="ad-chrome-dot dot-g"></div>
+      <div class="ad-chrome-bar">ads.mikuworld.net/promo?ref=vocaloid&utm_source=fan</div>
+    </div>
+
+    <div class="ad-inner">
+
+      <div class="ad-header">
+        <div class="ad-header-label">★ SPONSORED · ADVERTISEMENT ★</div>
+        <h2>ARE YOU A REAL <span>MIKU FAN</span>??</h2>
+      </div>
+
+      <div class="ad-body">
+
+        <div class="ad-img-placeholder">
+          <img src="images/hatsune-miku-oshi-no-ko.gif" alt="Miku Ad" />
+        </div>
+
+        <div class="ad-tagline">LOCAL MIKU FANS IN YOUR AREA <span>WANT TO MEET YOU!!</span></div>
+
+        <div class="ad-sub">
+          Don't miss out!! Join 39,000+ certified Miku enjoyers. Free leek with every order!!
+          Limited time offer expires when sensei stops looking 👀
+        </div>
+
+        <div class="ad-cta">
+          <!-- ✅ NOW OPENS miku.html in a new tab AND closes the ad -->
+          <button class="ad-btn-main" onclick="claimLeek()">CLAIM FREE LEEK NOW →</button>
+        </div>
+
+        <div class="ad-small-print">
+          *By clicking you agree to our Terms of Miku. Results may vary. Leek not guaranteed.
+          This ad was definitely not made by a student for a school project. AdChoice ⓘ
+        </div>
+
+      </div><!-- /ad-body -->
+
+    </div><!-- /ad-inner -->
+
+    <div class="ad-close-wrap">
+      <button id="adCloseBtn" class="locked" onclick="closeAd()">✕</button>
+      <div id="skipTimer">Skip in 4</div>
+    </div>
+
+    <div class="ad-badge">AdSense™ · i</div>
+
+  </div><!-- /ad-box -->
+</div><!-- /adOverlay -->
+
+<div class="toast-area" id="toastArea"></div>
+
+<script>
+/* ── AD LOGIC ── */
+let adShown = false;
+
+setTimeout(() => {
+  if (adShown) return;
+  adShown = true;
+  document.getElementById('adOverlay').classList.add('show');
+
+  let secs = 4;
+  const btn = document.getElementById('adCloseBtn');
+  const timer = document.getElementById('skipTimer');
+  const interval = setInterval(() => {
+    secs--;
+    if (secs <= 0) {
+      clearInterval(interval);
+      btn.classList.remove('locked');
+      timer.textContent = 'Skip ad ✕';
+    } else {
+      timer.textContent = `Skip in ${secs}`;
+    }
+  }, 1000);
+}, 10000);
+
+function closeAd() {
+  const btn = document.getElementById('adCloseBtn');
+  if (btn.classList.contains('locked')) return;
+  document.getElementById('adOverlay').classList.remove('show');
+}
+
+// ✅ Opens miku.html in a new tab AND closes the ad overlay
+function claimLeek() {
+  window.open('miku.html', '_blank');
+  document.getElementById('adOverlay').classList.remove('show');
+  toast('🌿 LEEK CLAIMED!! CHECK YOUR NEW TAB!!');
+}
+
+/* ── CONTACTS ── */
+let contacts = [
+  { id:1, l:'Hatsune', f:'Miku', e:'miku@vocalo.jp', p:'+81 39-39-39-39' },
+];
+let nextId = 2, editId = null;
+
+function esc(s){ return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+
+function renderTable(){
+  const q = document.getElementById('searchIn').value.toLowerCase();
+  const rows = contacts.filter(c=>[c.l,c.f,c.e,c.p].some(v=>v.toLowerCase().includes(q)));
+  document.getElementById('cCount').textContent = contacts.length;
+  const tb = document.getElementById('tbody');
+  if(!rows.length){
+    tb.innerHTML=`<tr><td colspan="6"><div class="empty">${q?'> NO RESULTS...':'> NO CONTACTS YET! (◕‿◕✿)'}</div></td></tr>`;
+    return;
+  }
+  tb.innerHTML = rows.map((c,i)=>`
+    <tr>
+      <td class="td-num">${i+1}</td>
+      <td class="td-name">${esc(c.l)}</td>
+      <td>${esc(c.f)}</td>
+      <td class="td-email">${esc(c.e)}</td>
+      <td class="td-phone">${esc(c.p)}</td>
+      <td><div class="td-actions">
+        <button class="btn btn-edit-sm" onclick="startEdit(${c.id})"> ✏ EDIT </button>
+        <button class="btn btn-del-sm"  onclick="del(${c.id})"> 🗑 DEL </button>
+      </div></td>
+    </tr>`).join('');
+}
+
+function handleSubmit(){
+  const l=document.getElementById('fLast').value.trim();
+  const f=document.getElementById('fFirst').value.trim();
+  const e=document.getElementById('fEmail').value.trim();
+  const p=document.getElementById('fPhone').value.trim();
+  if(!l||!f||!e||!p){ toast('⚠ FILL IN ALL FIELDS!!',true); return; }
+  if(editId!==null){
+    contacts[contacts.findIndex(c=>c.id===editId)]={id:editId,l,f,e,p};
+    toast('♪ CONTACT UPDATED! SUGOI!'); cancelEdit();
+  } else {
+    contacts.push({id:nextId++,l,f,e,p});
+    toast('★ CONTACT ADDED! MIKU APPROVES!'); clearF();
+  }
+  renderTable();
+}
+
+function startEdit(id){
+  const c=contacts.find(c=>c.id===id); editId=id;
+  document.getElementById('fLast').value=c.l;
+  document.getElementById('fFirst').value=c.f;
+  document.getElementById('fEmail').value=c.e;
+  document.getElementById('fPhone').value=c.p;
+  document.getElementById('submitBtn').textContent='[ ✔ SAVE CHANGES ]';
+  document.getElementById('cancelBtn').style.display='inline-block';
+  document.getElementById('editBar').classList.add('show');
+  document.querySelector('#formPanel .panel-header').textContent='✏ EDIT CONTACT ✏';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function cancelEdit(){
+  editId=null; clearF();
+  document.getElementById('submitBtn').textContent=' ♪ ADD CONTACT ♪ ';
+  document.getElementById('cancelBtn').style.display='none';
+  document.getElementById('editBar').classList.remove('show');
+  document.querySelector('#formPanel .panel-header').textContent='✦ ADD NEW CONTACT ✦';
+}
+
+function del(id){
+  if(!confirm('DELETE THIS CONTACT?? are you sure??')) return;
+  contacts=contacts.filter(c=>c.id!==id);
+  if(editId===id) cancelEdit();
+  toast('🗑 DELETED! SAYONARA~',true); renderTable();
+}
+
+function clearF(){ ['fLast','fFirst','fEmail','fPhone'].forEach(id=>document.getElementById(id).value=''); }
+
+function toast(msg,red=false){
+  const a=document.getElementById('toastArea');
+  const t=document.createElement('div');
+  t.className='toast'+(red?' red':'');
+  t.textContent=msg; a.appendChild(t);
+  setTimeout(()=>t.remove(),2700);
+}
+
+renderTable();
+</script>
+</body>
+</html>
